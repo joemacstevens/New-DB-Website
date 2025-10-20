@@ -118,13 +118,13 @@ const buildLogger = (requestId: string) =>
     }
   };
 
-const sanitizeNumber = (value?: string | null): number | null => {
+export const sanitizeNumber = (value?: string | null): number | null => {
   if (!value) return null;
   const parsed = Number.parseFloat(value);
   return Number.isFinite(parsed) ? parsed : null;
 };
 
-const parseLatLon = (latLon?: string | null): { latitude?: number; longitude?: number } => {
+export const parseLatLon = (latLon?: string | null): { latitude?: number; longitude?: number } => {
   if (!latLon) return {};
   const [lat, lon] = latLon.split(',').map((part) => Number.parseFloat(part.trim()));
   return {
@@ -133,7 +133,7 @@ const parseLatLon = (latLon?: string | null): { latitude?: number; longitude?: n
   };
 };
 
-const buildPurchaseOptions = (options?: MindbodyPurchaseOption[] | null): PricingOption[] => {
+export const buildPurchaseOptions = (options?: MindbodyPurchaseOption[] | null): PricingOption[] => {
   if (!options?.length) return [];
   return options.map((option) => ({
     id: option.id,
@@ -146,7 +146,7 @@ const buildPurchaseOptions = (options?: MindbodyPurchaseOption[] | null): Pricin
   }));
 };
 
-const normalizeIncluded = (included: MindbodyIncluded[] | undefined) => {
+export const normalizeIncluded = (included: MindbodyIncluded[] | undefined) => {
   const classes: Record<string, ScheduleClass> = {};
   const coaches: Record<string, ScheduleCoach> = {};
   const locations: Record<string, ScheduleLocation> = {};
@@ -214,7 +214,7 @@ const normalizeIncluded = (included: MindbodyIncluded[] | undefined) => {
   return { classes, coaches, locations };
 };
 
-const buildSessions = (
+export const buildSessions = (
   data: MindbodyClassTime[],
   lookups: { classes: Record<string, ScheduleClass>; coaches: Record<string, ScheduleCoach>; locations: Record<string, ScheduleLocation> }
 ): ScheduleSession[] =>
@@ -238,7 +238,7 @@ const buildSessions = (
     } satisfies ScheduleSession;
   });
 
-const normalizePayload = (response: MindbodyListResponse, params: ScheduleQueryParams): SchedulePayload => {
+export const normalizePayload = (response: MindbodyListResponse, params: ScheduleQueryParams): SchedulePayload => {
   const lookups = normalizeIncluded(response.included);
 
   const classes: Record<string, ScheduleClass> = {};
@@ -262,7 +262,7 @@ const normalizePayload = (response: MindbodyListResponse, params: ScheduleQueryP
   };
 };
 
-const sanitizeParams = (url: URL): ScheduleQueryParams => {
+export const sanitizeParams = (url: URL): ScheduleQueryParams => {
   const now = new Date();
   const defaultStartUtc = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
   const fromParam = url.searchParams.get('from') ?? new Date(defaultStartUtc).toISOString();
@@ -323,7 +323,7 @@ const enforceRateLimit = (ip: string, logger: ReturnType<typeof buildLogger>) =>
   return true;
 };
 
-const buildMindbodyPayload = (params: ScheduleQueryParams) => ({
+export const buildMindbodyPayload = (params: ScheduleQueryParams) => ({
   sort: 'start_time',
   page: { size: 100, number: 1 },
   filter: {

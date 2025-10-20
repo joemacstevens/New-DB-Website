@@ -1,0 +1,167 @@
+{
+  "meta": {
+    "start": 0,
+    "found": 3,
+    "searchEngine": "elasticsearch_1.0",
+    "algorithm": "cloudsearch_algorithm"
+  },
+  "data": [
+    {
+      "id": "340788312",
+      "type": "classTime",
+      "attributes": {
+        "category": "Boxing / kickboxing",
+        "subcategory": "Boxing",
+        "waitlistable": 0,
+        "dynamicPriceable": 0,
+        "duration": 60,
+        "openings": 10,
+        "difficulties": null,
+        "dropInPrice": null,
+        "inventoryRefJson": "{\"mb_class_id\":39680,\"mb_class_schedule_id\":560,\"mb_class_description_id\":54,\"mb_site_id\":706438,\"mb_location_id\":1,\"mb_master_location_id\":4130275,\"inventory_source\":\"MB\",\"inventory_category\":\"class_time\"}",
+        "inventorySource": "MB",
+        "pricingToken": null,
+        "blackoutStartTime": "2025-10-19T01:00:00.000Z",
+        "blackoutWindow": 12,
+        "bookableAfter": "2025-09-28T06:41:22Z",
+        "startTime": "2025-10-19T13:00:00Z",
+        "endTime": "2025-10-19T14:00:00Z",
+        "cutoffAt": "2025-10-19T13:00:00Z",
+        "free": false,
+        "cmMembershipBookable": false,
+        "purchaseOptions": [
+          {
+            "id": "102200",
+            "name": "Boxing Class Pack 10",
+            "isPackage": false,
+            "isDynamicallyPriced": false,
+            "isIntroOffer": false,
+            "isSingleSession": false,
+            "pricing": {
+              "retail": "150.0000",
+              "online": "150.0000"
+            }
+          }
+        ],
+        "dpOpenings": 0,
+        "webOpenings": 10,
+        "capacity": 10,
+        "secondaryCategories": []
+      },
+      "relationships": {
+        "course": {
+          "data": {
+            "type": "course",
+            "id": "9089424"
+          }
+        },
+        "location": {
+          "data": {
+            "type": "location",
+            "id": "460952"
+          }
+        },
+        "staff": {
+          "data": {
+            "type": "staff",
+            "id": "80191340"
+          }
+        }
+      },
+      "meta": {
+        "rankings": null
+      }
+    }
+  ],
+  "included": [
+    {
+      "id": "9089424",
+      "type": "course",
+      "attributes": {
+        "externalId": "706438:54",
+        "category": "Boxing / kickboxing",
+        "subcategory": "Boxing",
+        "name": "Women Lace Up Too",
+        "description": "Women Lace Too The class is designed to test your physical and mental endurance.",
+        "slug": "women-lace-up-too-different-breed-sports-academy",
+        "image": "https://example.com/course.jpg",
+        "stockImage": "https://example.com/stock-course.jpg",
+        "recordType": "Fitness",
+        "inventoryRefJson": "{\"mb_class_description_id\":54,\"mb_site_id\":706438,\"mb_location_id\":1,\"mb_master_location_id\":4130275,\"inventory_source\":\"MB\"}",
+        "inventorySource": "MB",
+        "classLevels": null,
+        "cmMembershipBookable": false,
+        "virtual": false,
+        "virtualDetails": {
+          "provider": null
+        },
+        "secondaryCategories": []
+      },
+      "relationships": {
+        "location": {
+          "meta": {
+            "included": false
+          }
+        },
+        "classTimes": {
+          "meta": {
+            "included": false
+          }
+        }
+      }
+    },
+    {
+      "id": "80191340",
+      "type": "staff",
+      "attributes": {
+        "categories": [
+          "Boxing / kickboxing"
+        ],
+        "name": "Pablo Gary",
+        "identitySlug": "pablo-gary",
+        "locationSlugs": [
+          "different-breed-sports-academy"
+        ],
+        "locationNames": [
+          "Different Breed Sports Academy"
+        ],
+        "avatar": "",
+        "bio": "Coach Pablo bio",
+        "inventorySource": "MB",
+        "inventoryRefJson": "{\"mb_staff_id\":100000023,\"mb_site_id\":706438,\"inventory_source\":\"MB\"}",
+        "gender": {
+          "code": 2,
+          "name": "female"
+        }
+      }
+    },
+    {
+      "id": "460952",
+      "type": "location",
+      "attributes": {
+        "categoryTypes": [
+          "Fitness"
+        ],
+        "categories": [
+          "Bootcamp",
+          "Boxing / kickboxing"
+        ],
+        "slug": "different-breed-sports-academy",
+        "logo": "https://example.com/logo.gif",
+        "address": "401 Water Street",
+        "address2": "",
+        "city": "Teaneck",
+        "state": "NJ",
+        "postalCode": "07666",
+        "phone": "2013473640",
+        "timezone": "America/New_York",
+        "latLon": "40.8885052,-74.0209752",
+        "inventoryRefJson": "{\"mb_site_id\":706438,\"mb_location_id\":1,\"mb_master_location_id\":4130275,\"inventory_source\":\"MB\"}",
+        "inventorySource": "MB",
+        "name": "Different Breed Sports Academy",
+        "locationName": "Different Breed Sports Academy",
+        "description": "Elite Fitness & sports training center."
+      }
+    }
+  ]
+}

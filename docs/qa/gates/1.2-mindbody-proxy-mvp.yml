@@ -1,0 +1,21 @@
+gate_id: "1.2-mindbody-proxy-mvp"
+story: docs/stories/1.2-mindbody-proxy-mvp.md
+status: PASS
+summary: |
+  All acceptance criteria met. Proxy deployed at https://new-db-website.vercel.app/api/schedule and returns normalized payload. Validation, rate limiting, fallback, and logging verified. FE/BE approvals recorded.
+findings:
+  - id: AC1
+    status: PASS
+    detail: `/api/schedule` responds with normalized sessions/classes/coaches/locations; curl verification shared.
+  - id: AC2
+    status: PASS
+    detail: 503 fallback path tested; error messaging aligns with spec.
+  - id: AC3
+    status: PASS
+    detail: Query validation and IP throttling implemented in handler.
+  - id: AC4
+    status: PASS
+    detail: Structured logging (requestId, duration, sessions) emitted; build logs confirm.
+remediation: []
+created_by: Quinn (QA)
+created_at: 2025-02-14T00:30:00Z
