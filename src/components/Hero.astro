@@ -1,0 +1,127 @@
+---
+import CTAButton from './CTAButton.astro';
+import Heading from './Heading.astro';
+import Text from './Text.astro';
+import styles from './Hero.module.css';
+
+type CTA = {
+  label: string;
+  dataCta: string;
+  href?: string;
+  target?: '_blank' | '_self' | '_parent' | '_top';
+  rel?: string;
+  variant?: 'primary' | 'secondary';
+  ariaLabel?: string;
+  type?: 'button' | 'submit' | 'reset';
+  loading?: boolean;
+  loadingText?: string;
+};
+
+type BackgroundImage = {
+  type: 'image';
+  src: string;
+  alt: string;
+};
+
+type BackgroundVideo = {
+  type: 'video';
+  src: string;
+  poster?: string;
+};
+
+type Background = BackgroundImage | BackgroundVideo;
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  subheading?: string;
+  alignment?: 'left' | 'center';
+  primaryCta: CTA;
+  secondaryCta?: CTA;
+  background: Background;
+  overlay?: '60' | '70';
+}
+
+const {
+  eyebrow,
+  heading,
+  subheading,
+  alignment = 'left',
+  primaryCta,
+  secondaryCta,
+  background,
+  overlay = '60',
+} = Astro.props as Props;
+
+const heroClasses = [styles.hero, alignment === 'center' ? styles['align-center'] : undefined]
+  .filter(Boolean)
+  .join(' ');
+
+const textAlign = alignment === 'center' ? 'center' : 'left';
+const overlayValue = overlay === '70' ? 'var(--overlay-70)' : 'var(--overlay-60)';
+---
+
+<section class={heroClasses} style={`--hero-overlay: ${overlayValue};`}>
+  <div class={styles.media} aria-hidden="true">
+    {background.type === 'image' ? (
+      <img src={background.src} alt={background.alt} loading="lazy" />
+    ) : (
+      <video autoplay muted loop playsinline poster={background.poster}>
+        <source src={background.src} type="video/mp4" />
+        Your browser does not support the background video.
+      </video>
+    )}
+  </div>
+
+  <div class={styles.overlay} aria-hidden="true" />
+
+  <div class={styles.content}>
+    {eyebrow && (
+      <Text variant="caption" align={textAlign} class={styles.eyebrow}>
+        {eyebrow}
+      </Text>
+    )}
+
+    <Heading level={1} align={textAlign} class={styles.heading}>
+      {heading}
+    </Heading>
+
+    {subheading && (
+      <Text align={textAlign} class={styles.subheading}>
+        {subheading}
+      </Text>
+    )}
+
+    <div class={styles.ctas}>
+      <CTAButton
+        href={primaryCta.href}
+        target={primaryCta.target}
+        rel={primaryCta.rel}
+        dataCta={primaryCta.dataCta}
+        variant={primaryCta.variant ?? 'primary'}
+        ariaLabel={primaryCta.ariaLabel}
+        type={primaryCta.type}
+        loading={primaryCta.loading}
+        loadingText={primaryCta.loadingText}
+      >
+        {primaryCta.label}
+      </CTAButton>
+
+      {secondaryCta && (
+        <CTAButton
+          href={secondaryCta.href}
+          target={secondaryCta.target}
+          rel={secondaryCta.rel}
+          dataCta={secondaryCta.dataCta}
+          variant={secondaryCta.variant ?? 'secondary'}
+          ariaLabel={secondaryCta.ariaLabel}
+          type={secondaryCta.type}
+          loading={secondaryCta.loading}
+          loadingText={secondaryCta.loadingText}
+        >
+          {secondaryCta.label}
+        </CTAButton>
+      )}
+    </div>
+  </div>
+</section>

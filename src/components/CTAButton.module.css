@@ -1,0 +1,74 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  border-radius: var(--border-radius-base);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base), color var(--transition-base);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-red-500);
+  outline-offset: 3px;
+}
+
+.button:disabled,
+.button[aria-busy='true'] {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+.primary {
+  background-color: var(--color-red-500);
+  color: var(--color-white);
+}
+
+.primary:hover,
+.primary:focus-visible {
+  background-color: #c51230;
+}
+
+.secondary {
+  background-color: transparent;
+  color: var(--color-red-500);
+  border-color: var(--color-red-500);
+}
+
+.secondary:hover,
+.secondary:focus-visible {
+  color: var(--color-white);
+  background-color: var(--color-red-500);
+}
+
+.sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+}
+
+.md {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+}
+
+.lg {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.icon {
+  display: inline-flex;
+  font-size: 1em;
+}

@@ -1,0 +1,113 @@
+---
+import CTAButton from './CTAButton.astro';
+import Heading from './Heading.astro';
+import Text from './Text.astro';
+import styles from './CTAbar.module.css';
+
+type LinkTarget = '_blank' | '_self' | '_parent' | '_top';
+
+type PrimaryCTA = {
+  label: string;
+  dataCta: string;
+  href?: string;
+  target?: LinkTarget;
+  rel?: string;
+  variant?: 'primary' | 'secondary';
+  ariaLabel?: string;
+  type?: 'button' | 'submit' | 'reset';
+  loading?: boolean;
+  loadingText?: string;
+};
+
+type SecondaryLink = {
+  label: string;
+  href: string;
+  dataCta: string;
+  target?: LinkTarget;
+  rel?: string;
+  ariaLabel?: string;
+};
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  body?: string;
+  alignment?: 'left' | 'center';
+  tone?: 'light' | 'dark';
+  headingLevel?: 2 | 3 | 4;
+  primaryCta: PrimaryCTA;
+  secondaryLink?: SecondaryLink;
+}
+
+const {
+  eyebrow,
+  heading,
+  body,
+  alignment = 'left',
+  tone = 'dark',
+  headingLevel = 3,
+  primaryCta,
+  secondaryLink,
+} = Astro.props as Props;
+
+const classes = [
+  styles.bar,
+  tone === 'light' ? styles['tone-light'] : undefined,
+  alignment === 'center' ? styles['align-center'] : undefined,
+]
+  .filter(Boolean)
+  .join(' ');
+
+const textAlign = alignment === 'center' ? 'center' : 'left';
+const secondaryRel =
+  secondaryLink?.rel ?? (secondaryLink?.target === '_blank' ? 'noopener noreferrer' : undefined);
+---
+
+<section class={classes}>
+  <div class={styles.copy}>
+    {eyebrow && (
+      <Text variant="caption" align={textAlign} class={styles.eyebrow}>
+        {eyebrow}
+      </Text>
+    )}
+
+    <Heading level={headingLevel} align={textAlign} class={styles.heading}>
+      {heading}
+    </Heading>
+
+    {body && (
+      <Text align={textAlign} class={styles.description}>
+        {body}
+      </Text>
+    )}
+  </div>
+
+  <div class={styles.actions}>
+    <CTAButton
+      href={primaryCta.href}
+      target={primaryCta.target}
+      rel={primaryCta.rel}
+      dataCta={primaryCta.dataCta}
+      variant={primaryCta.variant ?? 'primary'}
+      ariaLabel={primaryCta.ariaLabel}
+      type={primaryCta.type}
+      loading={primaryCta.loading}
+      loadingText={primaryCta.loadingText}
+    >
+      {primaryCta.label}
+    </CTAButton>
+
+    {secondaryLink && (
+      <a
+        class={styles.secondaryLink}
+        href={secondaryLink.href}
+        target={secondaryLink.target}
+        rel={secondaryRel}
+        data-cta={secondaryLink.dataCta}
+        aria-label={secondaryLink.ariaLabel}
+      >
+        {secondaryLink.label}
+      </a>
+    )}
+  </div>
+</section>

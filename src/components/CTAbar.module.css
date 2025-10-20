@@ -1,0 +1,135 @@
+.bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-md) clamp(var(--space-md), 5vw, var(--space-xl));
+  border-radius: var(--border-radius-base);
+  border: 1px solid transparent;
+  background-color: var(--color-gray-900);
+  color: var(--color-white);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.eyebrow {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.heading {
+  color: var(--color-white);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.description {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.actions :global(.button) {
+  flex-shrink: 0;
+}
+
+.secondaryLink {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-white);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  transition: color var(--transition-base);
+}
+
+.secondaryLink::after {
+  content: '→';
+  font-size: 1rem;
+}
+
+.secondaryLink:hover,
+.secondaryLink:focus-visible {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.tone-light {
+  background-color: var(--color-white);
+  color: var(--color-gray-900);
+  border-color: var(--color-gray-300);
+}
+
+.tone-light .eyebrow {
+  color: var(--color-red-500);
+}
+
+.tone-light .heading {
+  color: var(--color-gray-900);
+}
+
+.tone-light .description {
+  color: var(--color-gray-700);
+}
+
+.tone-light .secondaryLink {
+  color: var(--color-red-500);
+}
+
+.tone-light .secondaryLink:hover,
+.tone-light .secondaryLink:focus-visible {
+  color: var(--color-gray-700);
+}
+
+.align-center {
+  text-align: center;
+  align-items: center;
+}
+
+.align-center .copy {
+  align-items: center;
+  text-align: center;
+}
+
+.align-center .actions {
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .bar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .copy {
+    max-width: 38rem;
+  }
+
+  .actions {
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 767px) {
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actions :global(.button) {
+    width: 100%;
+  }
+
+  .secondaryLink {
+    justify-content: center;
+  }
+}

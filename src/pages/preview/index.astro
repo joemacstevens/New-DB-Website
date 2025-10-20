@@ -1,0 +1,150 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CTAButton from '../../components/CTAButton.astro';
+import CTAbar from '../../components/CTAbar.astro';
+import Heading from '../../components/Heading.astro';
+import Hero from '../../components/Hero.astro';
+import Text from '../../components/Text.astro';
+---
+
+<Layout>
+  <main class="preview">
+    <Hero
+      eyebrow="Performance Training"
+      heading="Built for athletes who refuse to coast."
+      subheading="High-intensity conditioning, strength blocks, and coach-led programming designed for people chasing elite performance."
+      background={{
+        type: 'image',
+        src: '/hero-gradient.svg',
+        alt: 'Red and midnight gradient symbolizing Different Breed intensity',
+      }}
+      primaryCta={{
+        label: 'Start Training',
+        href: '#',
+        dataCta: 'hero-start-training',
+      }}
+      secondaryCta={{
+        label: 'View Schedule',
+        href: '#',
+        dataCta: 'hero-view-schedule',
+      }}
+    />
+
+    <Hero
+      eyebrow="On The Floor"
+      heading="Real grit. Real coaching."
+      subheading="Video background shows the gym pulsing—muted, looping, and ready to go on autoplay with a still poster fallback."
+      alignment="center"
+      overlay="70"
+      background={{
+        type: 'video',
+        src: 'https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4',
+        poster: '/hero-gradient.svg',
+      }}
+      primaryCta={{
+        label: 'Book Drop-In',
+        href: '#',
+        dataCta: 'hero-book-drop-in',
+      }}
+      secondaryCta={{
+        label: 'Meet The Coaches',
+        href: '#',
+        dataCta: 'hero-meet-coaches',
+      }}
+    />
+
+    <section class="demo-card light">
+      <Heading level={2} kicker="Conversion Modules">CTA Bar</Heading>
+      <CTAbar
+        eyebrow="Next Step"
+        heading="Ready to train with the pack?"
+        body="Lock in a coaching plan or pick up a day pass. Every CTA is wired with analytics via data-cta tags."
+        primaryCta={{
+          label: 'Get Day Pass',
+          href: '#',
+          dataCta: 'cta-bar-day-pass',
+        }}
+        secondaryLink={{
+          label: 'See membership options',
+          href: '#',
+          dataCta: 'cta-bar-memberships',
+        }}
+      />
+    </section>
+
+    <section class="demo-card dark">
+      <Heading level={2} kicker="Primitives">CTA Buttons & Typography</Heading>
+      <div class="cta-row">
+        <CTAButton dataCta="get-day-pass" size="lg">Get Day Pass</CTAButton>
+        <CTAButton dataCta="start-training" variant="secondary" size="md">Start 1:1</CTAButton>
+        <CTAButton dataCta="loading-example" loading size="sm">Reserve Spot</CTAButton>
+      </div>
+      <div class="type-stack">
+        <Heading level={1}>We don’t do easy.</Heading>
+        <Heading level={2}>Standards Over Shortcuts</Heading>
+        <Heading level={3}>Real coaches. Real results.</Heading>
+        <Heading level={4}>Train with accountability.</Heading>
+        <Text variant="body">
+          Our style stays bold and direct—Inter Black for headlines, strong contrasts, and lots of white space.
+        </Text>
+        <Text variant="caption">Caption/eyebrow text keeps sections organized.</Text>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .preview {
+    min-height: 100vh;
+    background-color: var(--color-white);
+    color: var(--color-black);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    padding: clamp(var(--space-lg), 6vw, var(--space-2xl));
+  }
+
+  .demo-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    border-radius: var(--border-radius-base);
+    border: 1px solid transparent;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .demo-card.light {
+    background-color: var(--color-white);
+    border-color: var(--color-gray-300);
+  }
+
+  .demo-card.dark {
+    background-color: var(--color-gray-900);
+    border-color: rgba(255, 255, 255, 0.08);
+    color: var(--color-white);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    --heading-color: var(--color-white);
+    --body-color: rgba(255, 255, 255, 0.85);
+    --caption-color: rgba(255, 255, 255, 0.7);
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .type-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    max-width: 40rem;
+  }
+
+  @media (max-width: 768px) {
+    .demo-card {
+      padding: var(--space-md);
+    }
+  }
+</style>

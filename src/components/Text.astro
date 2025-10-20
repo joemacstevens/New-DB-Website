@@ -1,0 +1,21 @@
+---
+import styles from './Typography.module.css';
+
+type Variant = 'body' | 'caption';
+type Align = 'left' | 'center' | 'right';
+
+interface Props {
+  variant?: Variant;
+  as?: string;
+  align?: Align;
+  class?: string;
+}
+
+const { variant = 'body', as = variant === 'caption' ? 'span' : 'p', align = 'left', class: className } = Astro.props;
+const classes = [styles.text, styles[variant], styles[`align-${align}`], className]
+  .filter(Boolean)
+  .join(' ');
+---
+<component is={as} class={classes}>
+  <slot />
+</component>

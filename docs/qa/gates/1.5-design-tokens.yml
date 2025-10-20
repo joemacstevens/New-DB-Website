@@ -1,0 +1,18 @@
+gate_id: "1.5-design-tokens"
+story: docs/stories/1.5-design-tokens.md
+status: PASS
+summary: |
+  Design tokens and global styles implemented according to DS references. Tokens exposed in `src/styles/tokens.module.css`, global stylesheet applied via root layout, and README documents consumption. Build (`pnpm build`) passes with new styles.
+findings:
+  - id: AC1
+    status: PASS
+    detail: `src/styles/tokens.module.css` captures color palette, typography weights, and spacing values from design system.
+  - id: AC2
+    status: PASS
+    detail: `src/styles/global.css` applies Inter font, resets, and responsive spacing; imported in `src/layouts/Layout.astro`.
+  - id: AC3
+    status: PASS
+    detail: README updated with instructions on using design tokens and global styles.
+remediation: []
+created_by: Quinn (QA)
+created_at: 2025-02-14T01:10:00Z

@@ -1,0 +1,18 @@
+gate_id: "1.6-cta-typography"
+story: docs/stories/1.6-cta-typography.md
+status: PASS
+summary: |
+  CTA button and typography primitives implemented per design tokens. Preview page demonstrates usage; README updated with instructions. Build succeeds.
+findings:
+  - id: AC1
+    status: PASS
+    detail: CTAButton component supports primary/secondary variants, size options, loading state, and emits `data-cta`.
+  - id: AC2
+    status: PASS
+    detail: Heading/Text primitives reflect design system scale with correct weights and alignment options.
+  - id: AC3
+    status: PASS
+    detail: Preview route (`/preview`) showcases CTA + typography; README documents usage.
+remediation: []
+created_by: Quinn (QA)
+created_at: 2025-02-14T01:25:00Z

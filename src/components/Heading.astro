@@ -1,0 +1,23 @@
+---
+import styles from './Typography.module.css';
+
+type Align = 'left' | 'center' | 'right';
+type Level = 1 | 2 | 3 | 4;
+
+interface Props {
+  level?: Level;
+  align?: Align;
+  kicker?: string;
+  class?: string;
+}
+
+const { level = 2, align = 'left', kicker, class: className } = Astro.props;
+const tagName = `h${level}` as const;
+const classes = [styles.heading, styles[`h${level}`], styles[`align-${align}`], className]
+  .filter(Boolean)
+  .join(' ');
+---
+{ kicker && <p class={[styles.kicker, styles[`align-${align}`]].filter(Boolean).join(' ')}>{kicker}</p> }
+<component is={tagName} class={classes}>
+  <slot />
+</component>

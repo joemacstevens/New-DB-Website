@@ -1,0 +1,62 @@
+---
+import styles from './CTAButton.module.css';
+
+type Size = 'sm' | 'md' | 'lg';
+type Variant = 'primary' | 'secondary';
+
+interface Props {
+  href?: string;
+  target?: '_blank' | '_self' | '_parent' | '_top';
+  rel?: string;
+  type?: 'button' | 'submit' | 'reset';
+  size?: Size;
+  variant?: Variant;
+  loading?: boolean;
+  loadingText?: string;
+  dataCta: string;
+  ariaLabel?: string;
+  class?: string;
+}
+
+const {
+  href,
+  target,
+  rel = target === '_blank' ? 'noopener noreferrer' : undefined,
+  type = 'button',
+  size = 'md',
+  variant = 'primary',
+  loading = false,
+  loadingText = 'Loading…',
+  dataCta,
+  ariaLabel,
+  class: className,
+} = Astro.props;
+
+const classes = [styles.button, styles[variant], styles[size], className].filter(Boolean).join(' ');
+---
+{href ? (
+  <a
+    class={classes}
+    href={href}
+    target={target}
+    rel={rel}
+    data-cta={dataCta}
+    aria-label={ariaLabel}
+    aria-busy={loading ? 'true' : 'false'}
+    aria-disabled={loading ? 'true' : undefined}
+    tabIndex={loading ? -1 : undefined}
+  >
+    <span class={styles.label}>{loading ? loadingText : <slot />}</span>
+  </a>
+) : (
+  <button
+    class={classes}
+    type={type}
+    data-cta={dataCta}
+    aria-label={ariaLabel}
+    aria-busy={loading ? 'true' : 'false'}
+    disabled={loading}
+  >
+    <span class={styles.label}>{loading ? loadingText : <slot />}</span>
+  </button>
+)}
