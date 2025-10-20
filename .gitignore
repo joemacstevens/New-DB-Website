@@ -157,3 +157,16 @@ docs/stories/1.8-component-preview.md
 docs/stories/1.9-analytics-plan.md
 docs/stories/1.10-risk-monitoring.md
 docs/architecture/schedule-proxy.md
+.astro/
+dist/
+node_modules/
+.idea/
+.vscode/
+.vercel/
+.env
+.env.production
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+docs/qa/gates/1.1-mindbody-proxy-spec.yml

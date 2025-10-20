@@ -3,6 +3,5 @@
   "framework": "astro",
   "installCommand": "pnpm install",
   "buildCommand": "pnpm run build",
-  "outputDirectory": "dist",
-  "rootDirectory": "site"
+  "outputDirectory": "dist"
 }
