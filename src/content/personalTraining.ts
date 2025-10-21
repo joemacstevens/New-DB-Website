@@ -10,15 +10,15 @@ export type Step = {
   description: string;
 };
 
-import aadamAliImage from '../assets/coaches/aadam-ali-personal-training.webp?url';
+import aadamAliImage from '../assets/coaches/aadam-ali-personal-training.png?url';
 import donSomervilleImage from '../assets/coaches/personal-training-don-somerville.png?url';
 import joeButtaImage from '../assets/coaches/personal-training-joe-butta.png?url';
-import danielWilsonImage from '../assets/coaches/personal-training-daniel-wilson.webp?url';
-import coachDredImage from '../assets/coaches/personal-training-coach-dred.webp?url';
-import carlosAcevedoImage from '../assets/coaches/personal-training-carlos-acevdeo.webp?url';
-import pabloGaryImage from '../assets/coaches/personal-training-pablo-gary.webp?url';
+import danielWilsonImage from '../assets/coaches/personal-training-daniel-wilson.png?url';
+import coachDredImage from '../assets/coaches/personal-training-coach-dred.png?url';
+import carlosAcevedoImage from '../assets/coaches/personal-training-carlos-acevdeo.png?url';
+import pabloGaryImage from '../assets/coaches/personal-training-pablo-gary.png?url';
 import glendaOrtizImage from '../assets/coaches/personal-training-glenda-ortiz.png?url';
-import ricardoCastroImage from '../assets/coaches/personal-training-ricardo-castro.webp?url';
+import ricardoCastroImage from '../assets/coaches/personal-training-ricardo-castro.png?url';
 import coreyWhiteImage from '../assets/coaches/personal-training-corey-white.webp?url';
 import matthewSorrentinoImage from '../assets/coaches/personal-training-matthew-sorrentino.png?url';
 import michelleButtafuocoImage from '../assets/coaches/personal-training-michelle-buttafuoco.png?url';
