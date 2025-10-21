@@ -1,0 +1,25 @@
+gate_id: "2.1-contact-page"
+story: docs/stories/2.1-contact-page.md
+status: PASS
+summary: |
+  `/contact` delivers the full Contact & Visit experience with hero, form/info grid,
+  map section, social links, and closing CTA bar.
+  Server-side `/api/contact` validates submissions, proxies to Formspree, and
+  reports success/error states back to the page while analytics `data-cta` tags
+  remain in place across CTAs.
+findings:
+  - id: AC1
+    status: PASS
+    detail: Layout composes hero, contact grid, map, social links, and CTA bar (`src/pages/contact.astro:97`-`168`).
+  - id: AC2
+    status: PASS
+    detail: Form posts to `/api/contact`, enforces validation, surfaces status messaging, and carries `data-cta` instrumentation (`src/components/ContactForm.astro:18`-`150`, `src/pages/api/contact.ts:9`-`94`).
+  - id: AC3
+    status: PASS
+    detail: Contact info exposes phone/email/address/hours with CTA links and sticky mobile day-pass button, while map embed loads with accessible title and fallback message (`src/components/ContactInfo.astro:16`-`68`, `src/components/MapSection.astro:11`-`44`, `src/styles/contact.module.css:184`-`228`).
+  - id: AC4
+    status: PASS
+    detail: All CTAs (hero, form submit, sticky, map, social, footer) supply `data-cta` attributes and adhere to design tokens (`src/pages/contact.astro:98`-`159`, `src/components/SocialLinks.astro:1`-`39`).
+remediation: []
+created_by: Quinn (QA)
+created_at: 2025-10-20T22:59:35Z

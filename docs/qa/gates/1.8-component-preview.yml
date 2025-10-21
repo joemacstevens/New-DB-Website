@@ -1,0 +1,18 @@
+gate_id: "1.8-component-preview"
+story: docs/stories/1.8-component-preview.md
+status: PASS
+summary: |
+  Astro preview page aggregates CTA button, typography, hero, and CTA bar demos with scoped styling; documentation explains workflow and UX sign-off logged.
+findings:
+  - id: AC1
+    status: PASS
+    detail: `/preview` route renders CTA button, typography stack, hero (image + video variants), and CTA bar samples without leaking into production navigation.
+  - id: AC2
+    status: PASS
+    detail: README documents running `pnpm dev`, navigating to `/preview`, and updating showcase entries in `src/pages/preview/index.astro`.
+  - id: AC3
+    status: PASS
+    detail: Story notes capture UX walkthrough completion with Sally on 2025-02-16 confirming preview structure meets review needs.
+remediation: []
+created_by: Quinn (QA)
+created_at: 2025-02-17T01:40:40Z

@@ -1,0 +1,41 @@
+---
+import styles from './StepsGrid.module.css';
+import type { Step } from '../content/personalTraining';
+
+interface Props {
+  steps: Step[];
+  eyebrow?: string;
+  heading?: string;
+  sectionId?: string;
+}
+
+const { steps, eyebrow, heading, sectionId } = Astro.props;
+const headingId = heading ? `${sectionId ?? 'steps-grid'}-heading` : undefined;
+---
+
+<section class={styles.section} aria-labelledby={headingId}>
+  <div class={styles.inner}>
+    {(eyebrow || heading) && (
+      <div class={styles.header}>
+        {eyebrow && <span class={styles.eyebrow}>{eyebrow}</span>}
+        {heading && (
+          <h2 id={headingId} class={styles.heading}>
+            {heading}
+          </h2>
+        )}
+      </div>
+    )}
+
+    <ol class={styles.grid}>
+      {steps.map((step) => (
+        <li key={step.number} class={styles.step}>
+          <span class={styles.number} aria-hidden="true">
+            {step.number}
+          </span>
+          <h3 class={styles.stepTitle}>{step.title}</h3>
+          <p class={styles.stepCopy}>{step.description}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

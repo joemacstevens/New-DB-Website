@@ -1,0 +1,98 @@
+---
+import CTAButton from './CTAButton.astro';
+import styles from './CoachGrid.module.css';
+import type { CoachHighlight } from '../content/personalTraining';
+
+interface Props {
+  coaches: CoachHighlight[];
+}
+
+const { coaches } = Astro.props;
+const hasCoaches = coaches.length > 0;
+---
+
+<section class={styles.section} aria-labelledby="personal-training-coaches">
+  <div class={styles.inner}>
+    <div class={styles.header}>
+      <h2 id="personal-training-coaches" class={styles.heading}>
+        Meet your coaches
+      </h2>
+      <p>Hand-selected trainers with championships, youth mentorship, and holistic credentials.</p>
+    </div>
+
+    {hasCoaches ? (
+      <div class={styles.grid} role="list">
+        {coaches.map((coach) => {
+          const firstName = coach.name.split(' ')[0];
+          const cardId = `coach-${coach.slug}`;
+
+          return (
+            <article
+              key={coach.slug}
+              class={styles.card}
+              role="listitem"
+              tabIndex={0}
+              aria-labelledby={`${cardId}-name`}
+            >
+              <figure class={styles.figure}>
+                <span class={styles.firstName} aria-hidden="true">
+                  {firstName}
+                </span>
+
+                <div class={styles.photoSurface}>
+                  {coach.image ? (
+                    <img
+                      class={styles.photo}
+                      src={coach.image}
+                      alt={coach.imageAlt}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <span class={styles.photoFallback} role="img" aria-label={coach.imageAlt}>
+                      Coach Portrait
+                    </span>
+                  )}
+                </div>
+
+                <figcaption class={styles.overlay}>
+                  <div class={styles.overlayContent}>
+                    <div class={styles.overlayHeader}>
+                      <h3 id={`${cardId}-name`} class={styles.name}>
+                        {coach.name}
+                      </h3>
+                      <p class={styles.meta}>{coach.headline}</p>
+                    </div>
+
+                    {coach.focusTags.length > 0 && (
+                      <ul class={styles.tagList}>
+                        {coach.focusTags.map((tag) => (
+                          <li key={tag} class={styles.tag}>
+                            {tag}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                    <CTAButton
+                      class={styles.ctaButton}
+                      href={`/coaches/${coach.slug}`}
+                      dataCta={`personal-training-coach-${coach.slug}`}
+                      variant="secondary"
+                    >
+                      Meet {firstName}
+                    </CTAButton>
+                  </div>
+                </figcaption>
+              </figure>
+            </article>
+          );
+        })}
+      </div>
+    ) : (
+      <div class={styles.emptyState}>
+        TODO: Populate coach highlights once content entries are available.
+      </div>
+    )}
+  </div>
+</section>

@@ -1,0 +1,151 @@
+---
+import CTAButton from './CTAButton.astro';
+import styles from '../styles/contact.module.css';
+import type { ContactFormErrors } from '../utils/contactValidation';
+
+interface StatusState {
+  tone?: 'idle' | 'success' | 'error';
+  message?: string;
+}
+
+interface FormValues {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+}
+
+const {
+  values = { name: '', email: '', phone: '', message: '' },
+  errors = {},
+  status = { tone: 'idle', message: '' },
+  hasEndpoint = false,
+} = Astro.props as {
+  values: FormValues;
+  errors: ContactFormErrors;
+  status: StatusState;
+  hasEndpoint: boolean;
+};
+
+const submitLabel = hasEndpoint ? 'Send Message' : 'Configure Form Endpoint';
+const statusTone = status.tone ?? 'idle';
+const statusMessage = status.message ?? '';
+const statusClass =
+  statusTone === 'success'
+    ? styles.statusSuccess
+    : statusTone === 'error'
+      ? styles.statusError
+      : undefined;
+---
+<section class={styles.formCard} aria-labelledby="contact-form-heading">
+  <h2 id="contact-form-heading" class={styles.formHeading}>Let’s talk.</h2>
+  <p class={styles.formSubheading}>Tell us what you need, and the team will reach out within one business day.</p>
+
+  <form
+    id="contact-form"
+    class={styles.form}
+    action="/api/contact"
+    method="post"
+  >
+    <div class={styles.fieldGroup}>
+      <label class={styles.label} for="contact-name">
+        Name
+      </label>
+      <input
+        id="contact-name"
+        class={styles.input}
+        type="text"
+        name="name"
+        autocomplete="name"
+        value={values.name}
+        placeholder="Your name"
+        required
+        aria-invalid={errors.name ? 'true' : undefined}
+        aria-describedby="contact-name-error"
+      />
+      <p id="contact-name-error" class={styles.fieldError} role="status" aria-live="polite">
+        {errors.name}
+      </p>
+    </div>
+
+    <div class={styles.fieldGroup}>
+      <label class={styles.label} for="contact-email">
+        Email
+      </label>
+      <input
+        id="contact-email"
+        class={styles.input}
+        type="email"
+        name="email"
+        autocomplete="email"
+        value={values.email}
+        placeholder="you@example.com"
+        required
+        aria-invalid={errors.email ? 'true' : undefined}
+        aria-describedby="contact-email-error"
+      />
+      <p id="contact-email-error" class={styles.fieldError} role="status" aria-live="polite">
+        {errors.email}
+      </p>
+    </div>
+
+    <div class={styles.fieldGroup}>
+      <label class={styles.label} for="contact-phone">
+        Phone <span class={styles.optional}>(optional)</span>
+      </label>
+      <input
+        id="contact-phone"
+        class={styles.input}
+        type="tel"
+        name="phone"
+        autocomplete="tel"
+        value={values.phone ?? ''}
+        placeholder="(201) 555-1234"
+        aria-invalid={errors.phone ? 'true' : undefined}
+        aria-describedby="contact-phone-error"
+      />
+      <p id="contact-phone-error" class={styles.fieldError} role="status" aria-live="polite">
+        {errors.phone}
+      </p>
+    </div>
+
+    <div class={`${styles.fieldGroup} ${styles.fieldGroupFull}`}>
+      <label class={styles.label} for="contact-message">
+        Message
+      </label>
+      <textarea
+        id="contact-message"
+        class={`${styles.textarea}`}
+        name="message"
+        placeholder="Tell us how we can help."
+        required
+        aria-invalid={errors.message ? 'true' : undefined}
+        aria-describedby="contact-message-error"
+      >{values.message}</textarea>
+      <p id="contact-message-error" class={styles.fieldError} role="status" aria-live="polite">
+        {errors.message}
+      </p>
+    </div>
+
+    <div class={styles.fieldGroupFull}>
+      <CTAButton
+        type="submit"
+        dataCta="contact-form-submit"
+        ariaLabel="Send your contact message"
+        class={styles.submitButton}
+      >
+        {submitLabel}
+      </CTAButton>
+    </div>
+
+    <p class={`${styles.statusMessage} ${statusClass ?? ''}`} role="status" aria-live="polite">
+      {statusMessage}
+    </p>
+  </form>
+
+  {!hasEndpoint && (
+    <p class={styles.configurationWarning}>
+      Set <code>FORMSPREE_CONTACT_ENDPOINT</code> in your environment to enable live submissions.
+    </p>
+  )}
+</section>

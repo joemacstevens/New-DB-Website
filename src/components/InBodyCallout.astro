@@ -1,0 +1,59 @@
+---
+import CTAButton from './CTAButton.astro';
+import styles from './InBodyCallout.module.css';
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  body: string[];
+  ctaLabel: string;
+  ctaHref: string;
+  ctaDataId: string;
+  mediaLabel?: string;
+}
+
+const {
+  eyebrow,
+  heading,
+  body,
+  ctaLabel,
+  ctaHref,
+  ctaDataId,
+  mediaLabel = 'TODO: Replace with final InBody photography',
+} = Astro.props;
+
+const sectionId = `inbody-${heading.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+---
+
+<section class={styles.section} aria-labelledby={`${sectionId}-heading`}>
+  <div class={styles.layout}>
+    <div class={styles.media} role="img" aria-label={mediaLabel}>
+      <span class={styles.mediaText}>{mediaLabel}</span>
+    </div>
+
+    <div class={styles.content}>
+      {eyebrow && <span class={styles.eyebrow}>{eyebrow}</span>}
+      <h2 id={`${sectionId}-heading`} class={styles.heading}>
+        {heading}
+      </h2>
+
+      <div class={styles.description}>
+        <ul class={styles.bullets}>
+          {body.map((line) => (
+            <li key={line}>{line}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div class={styles.ctaGroup}>
+        <CTAButton
+          href={ctaHref}
+          dataCta={ctaDataId}
+          ariaLabel={`${ctaLabel} (opens ${ctaHref})`}
+        >
+          {ctaLabel}
+        </CTAButton>
+      </div>
+    </div>
+  </div>
+</section>

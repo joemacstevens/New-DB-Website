@@ -1,0 +1,68 @@
+---
+import CTAButton from './CTAButton.astro';
+import styles from '../styles/contact.module.css';
+
+const PHONE_NUMBER = '(201) 347-3640';
+const PHONE_LINK = 'tel:12013473640';
+const EMAIL_ADDRESS = 'info@dbelitefitness.com';
+const EMAIL_LINK = `mailto:${EMAIL_ADDRESS}`;
+const STREET_ADDRESS = '250 DeGraw Ave, Teaneck, NJ 07666';
+const HOURS = 'Mon–Fri · 6 AM–9 PM | Sat · 8 AM–2 PM | Sun · Closed';
+const directionsUrl =
+  import.meta.env.PUBLIC_GOOGLE_MAPS_DIRECTIONS_URL ??
+  'https://www.google.com/maps/dir/?api=1&destination=250+DeGraw+Ave%2C+Teaneck%2C+NJ+07666';
+---
+
+<aside class={styles.infoPanel} aria-labelledby="contact-details-heading">
+  <div>
+    <h2 id="contact-details-heading">Visit or reach out</h2>
+    <p class={styles.infoDescription}>Call us. Message us. Or just stop by.</p>
+  </div>
+
+  <ul class={styles.infoList}>
+    <li class={styles.infoItem}>
+      <span class={styles.infoLabel}>Phone</span>
+      <a
+        class={`${styles.infoValue} ${styles.infoLink}`}
+        href={PHONE_LINK}
+        data-cta="contact-call-now"
+        aria-label={`Call Different Breed at ${PHONE_NUMBER}`}
+      >
+        {PHONE_NUMBER}
+      </a>
+    </li>
+    <li class={styles.infoItem}>
+      <span class={styles.infoLabel}>Email</span>
+      <a
+        class={`${styles.infoValue} ${styles.infoLink}`}
+        href={EMAIL_LINK}
+        data-cta="contact-email"
+        aria-label={`Email Different Breed at ${EMAIL_ADDRESS}`}
+      >
+        {EMAIL_ADDRESS}
+      </a>
+    </li>
+    <li class={styles.infoItem}>
+      <span class={styles.infoLabel}>Address</span>
+      <address class={styles.infoValue}>{STREET_ADDRESS}</address>
+    </li>
+    <li class={styles.infoItem}>
+      <span class={styles.infoLabel}>Hours</span>
+      <span class={styles.infoValue}>{HOURS}</span>
+    </li>
+  </ul>
+
+  <div class={styles.infoCta}>
+    <CTAButton
+      href={directionsUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      variant="secondary"
+      size="md"
+      dataCta="contact-get-directions"
+      ariaLabel="Open driving directions to Different Breed in a new tab"
+    >
+      Get Directions
+    </CTAButton>
+  </div>
+</aside>

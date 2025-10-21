@@ -1,0 +1,19 @@
+gate_id: "1.7-hero-cta-bar"
+story: docs/stories/1.7-hero-cta-bar.md
+status: PASS
+summary: |
+  Hero and CTA bar components satisfy design/system requirements. Hero supports image or mp4 backgrounds with overlay tokens;
+  CTA bar handles responsive layout and optional secondary link. Preview route demonstrates both variants.
+findings:
+  - id: AC1
+    status: PASS
+    detail: Hero component accepts structured CTA objects, alignment, and image/video backgrounds with autoplay-safe attributes and overlay (`--overlay-60/70`).
+  - id: AC2
+    status: PASS
+    detail: CTAbar renders copy, primary CTA button, and optional secondary link; CSS modules ensure desktop row and mobile stack layouts.
+  - id: AC3
+    status: PASS
+    detail: `/preview` page showcases hero (image + video examples) and CTA bar; README documents usage and approvals recorded in story notes.
+remediation: []
+created_by: Quinn (QA)
+created_at: 2025-02-17T01:39:30Z

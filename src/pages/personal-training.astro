@@ -1,0 +1,113 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import CTAButton from '../components/CTAButton.astro';
+import CTAbar from '../components/CTAbar.astro';
+import InfoCards from '../components/InfoCards.astro';
+import InBodyCallout from '../components/InBodyCallout.astro';
+import StepsGrid from '../components/StepsGrid.astro';
+import CoachGrid from '../components/CoachGrid.astro';
+import TestimonialStrip from '../components/TestimonialStrip.astro';
+import styles from '../styles/personal-training.module.css';
+import heroImageUrl from '../assets/background.svg?url';
+import {
+  infoCards,
+  steps,
+  coachHighlights,
+  testimonials,
+  testimonialsCopyTodo,
+} from '../content/personalTraining';
+
+const heroBackground = {
+  type: 'image' as const,
+  src: heroImageUrl,
+  alt: 'Coach guiding an athlete through personal training work',
+};
+---
+
+<Layout>
+  <Hero
+    eyebrow="Different Breed Personal Training"
+    heading="You don’t need perfect. You need a plan and a coach."
+    subheading="Real coaching. Real accountability. Every session built around data and goals."
+    primaryCta={{
+      label: 'Start 1:1',
+      href: '/contact',
+      dataCta: 'personal-training-hero-start',
+      ariaLabel: 'Start 1:1 personal training',
+    }}
+    secondaryCta={{
+      label: 'Get Day Pass',
+      href: '/membership',
+      dataCta: 'personal-training-hero-day-pass',
+      ariaLabel: 'View membership options to get a day pass',
+    }}
+    background={heroBackground}
+    overlay="70"
+  />
+
+  <div class={styles.stickyCta}>
+    <div class={styles.stickyInner}>
+      <CTAButton href="/contact" size="lg" dataCta="personal-training-sticky-start" ariaLabel="Start 1:1 personal training">
+        Start 1:1
+      </CTAButton>
+    </div>
+  </div>
+
+  <main class={styles.page}>
+    <InfoCards
+      cards={infoCards}
+      eyebrow="Premium coaching"
+      heading="Built for your goals"
+      description="Every program starts with assessment, follows a custom plan, and ends with measurable results."
+      sectionId="info"
+    />
+
+    <InBodyCallout
+      eyebrow="InBody 380"
+      heading="Know your numbers."
+      body={[
+        'The InBody 380 measures muscle, fat, water balance, and more so you train with facts.',
+        'Scans are included with Competitor and Different Breed memberships.',
+        'Each scan guides the next training block and keeps accountability high.',
+      ]}
+      ctaLabel="Learn more about membership"
+      ctaHref="/membership"
+      ctaDataId="personal-training-inbody-membership"
+    />
+
+    <StepsGrid
+      steps={steps}
+      eyebrow="How it works"
+      heading="Assess. Plan. Train. Track."
+      sectionId="steps"
+    />
+
+    <CoachGrid coaches={coachHighlights} />
+
+    <TestimonialStrip
+      heading="Proof over promises."
+      subheading="Members trust the process because it delivers measurable change."
+      testimonials={testimonials}
+      todoNote={testimonialsCopyTodo}
+    />
+
+    <CTAbar
+      eyebrow="No hype. Just results."
+      heading="Be Different. Not Basic."
+      body="Start your personal training plan or grab a day pass to see the difference for yourself."
+      alignment="center"
+      primaryCta={{
+        label: 'Start 1:1',
+        href: '/contact',
+        dataCta: 'personal-training-final-start',
+        ariaLabel: 'Start personal training today',
+      }}
+      secondaryLink={{
+        label: 'Get Day Pass',
+        href: '/membership',
+        dataCta: 'personal-training-final-day-pass',
+      }}
+    />
+  </main>
+</Layout>

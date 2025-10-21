@@ -1,0 +1,29 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  background-color: var(--color-white);
+}
+
+.stickyCta {
+  position: fixed;
+  bottom: var(--space-sm);
+  left: var(--space-sm);
+  right: var(--space-sm);
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+}
+
+.stickyInner {
+  background-color: rgba(17, 17, 17, 0.92);
+  border-radius: 999px;
+  padding: var(--space-xs) var(--space-md);
+  box-shadow: 0 12px 24px rgba(17, 17, 17, 0.35);
+}
+
+@media (min-width: 768px) {
+  .stickyCta {
+    display: none;
+  }
+}

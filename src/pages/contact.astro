@@ -1,0 +1,170 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import CTAbar from '../components/CTAbar.astro';
+import CTAButton from '../components/CTAButton.astro';
+import ContactForm from '../components/ContactForm.astro';
+import ContactInfo from '../components/ContactInfo.astro';
+import MapSection from '../components/MapSection.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import styles from '../styles/contact.module.css';
+import heroImageUrl from '../assets/background.svg?url';
+import {
+  sanitizeValue,
+  validateContactForm,
+  type ContactFormErrors,
+  type ContactFormValues,
+} from '../utils/contactValidation';
+
+type FormStatusTone = 'idle' | 'success' | 'error';
+
+type FormStatus = {
+  tone: FormStatusTone;
+  message: string;
+};
+
+const searchParams = Astro.url.searchParams;
+
+const rawValues = {
+  name: sanitizeValue(searchParams.get('name')),
+  email: sanitizeValue(searchParams.get('email')),
+  phone: sanitizeValue(searchParams.get('phone')),
+  message: sanitizeValue(searchParams.get('message')),
+};
+
+const formValues: ContactFormValues = {
+  name: rawValues.name,
+  email: rawValues.email,
+  message: rawValues.message,
+};
+
+if (rawValues.phone) {
+  formValues.phone = rawValues.phone;
+}
+
+let displayValues = {
+  name: rawValues.name,
+  email: rawValues.email,
+  phone: rawValues.phone,
+  message: rawValues.message,
+};
+
+let fieldErrors: ContactFormErrors = {};
+let formStatus: FormStatus = { tone: 'idle', message: '' };
+
+const statusParam = searchParams.get('status');
+const reasonParam = searchParams.get('reason');
+const hasEndpoint = Boolean(import.meta.env.FORMSPREE_CONTACT_ENDPOINT ?? '');
+
+if (statusParam === 'success') {
+  formStatus = {
+    tone: 'success',
+    message: 'Thanks for reaching out — we’ll reply within one business day.',
+  };
+  displayValues = {
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+  };
+} else if (statusParam === 'error') {
+  formStatus = {
+    tone: 'error',
+    message: 'We could not send your message. Please try again.',
+  };
+
+  if (reasonParam === 'validation') {
+    fieldErrors = validateContactForm(formValues);
+    formStatus.message = 'Please fix the highlighted fields and try again.';
+  } else if (reasonParam === 'not-configured') {
+    formStatus.message =
+      'Contact form has not been configured yet. Please call us or try again later.';
+  } else if (reasonParam === 'upstream') {
+    formStatus.message =
+      'We could not reach our contact service. Please try again in a few minutes.';
+  } else if (reasonParam === 'network') {
+    formStatus.message = 'Network error while sending your message. Please try again.';
+  }
+}
+
+const heroBackground = {
+  type: 'image' as const,
+  src: heroImageUrl,
+  alt: 'Entrance to Different Breed Elite Fitness',
+};
+---
+
+<Layout>
+  <Hero
+    eyebrow="Different Breed Elite Fitness — Teaneck, NJ"
+    heading="Walk through the door."
+    subheading="Call us, message us, or stop by. We’re here to get you moving."
+    primaryCta={{
+      label: 'Get Day Pass',
+      href: '/membership',
+      dataCta: 'contact-hero-day-pass',
+      ariaLabel: 'Start your Different Breed day pass',
+    }}
+    secondaryCta={{
+      label: 'Call Now',
+      href: 'tel:12013473640',
+      dataCta: 'contact-hero-call',
+      ariaLabel: 'Call Different Breed now',
+    }}
+    background={heroBackground}
+    overlay="70"
+  />
+
+  <div class={styles.stickyCta}>
+    <div class={styles.stickyInner}>
+      <CTAButton
+        href="/membership"
+        size="lg"
+        dataCta="contact-sticky-day-pass"
+        ariaLabel="Get a Different Breed day pass"
+      >
+        Get Day Pass
+      </CTAButton>
+    </div>
+  </div>
+
+  <main class={styles.page}>
+    <section class={`${styles.section} ${styles.sectionLight}`} aria-labelledby="contact-form-section">
+      <div class={styles.contactGrid}>
+        <ContactInfo />
+        <ContactForm
+          values={displayValues}
+          errors={fieldErrors}
+          status={formStatus}
+          hasEndpoint={hasEndpoint}
+        />
+      </div>
+    </section>
+
+    <MapSection />
+
+    <SocialLinks />
+
+    <section class={`${styles.section} ${styles.sectionLight}`} aria-labelledby="contact-cta-heading">
+      <div class="container">
+        <CTAbar
+          eyebrow="No hype. Just work."
+          heading="Be Different. Not Basic."
+          body="Grab a day pass and see why the community keeps showing up."
+          alignment="center"
+          primaryCta={{
+            label: 'Get Day Pass',
+            href: '/membership',
+            dataCta: 'contact-final-day-pass',
+            ariaLabel: 'Start your day pass',
+          }}
+          secondaryLink={{
+            label: 'Visit the schedule',
+            href: '/schedule',
+            dataCta: 'contact-final-schedule',
+          }}
+        />
+      </div>
+    </section>
+  </main>
+</Layout>

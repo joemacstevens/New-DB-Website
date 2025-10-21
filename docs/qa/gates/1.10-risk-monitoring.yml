@@ -1,0 +1,20 @@
+gate_id: "1.10-risk-monitoring"
+story: docs/stories/1.10-risk-monitoring.md
+status: PASS
+summary: |
+  Risk register still captures prioritized Sprint 1 risks with owners and mitigations,
+  monitoring plan continues to define logging fields and the 2% error / 1s latency thresholds,
+  and action items remain assigned with owners and due dates for monitoring follow-up.
+findings:
+  - id: AC1
+    status: PASS
+    detail: `docs/ops/risk-register.md` lists Sprint 1 risks including API limits, credentials, analytics cadence with severity, likelihood, owners, and mitigations.
+  - id: AC2
+    status: PASS
+    detail: Monitoring strategy covers `/api/schedule` logging schema, 2% error and 1s latency thresholds, and tooling/alert workflow.
+  - id: AC3
+    status: PASS
+    detail: Action items table assigns follow-ups with owners, due dates, and status tracking.
+remediation: []
+created_by: Quinn (QA)
+created_at: 2025-10-20T18:40:54Z

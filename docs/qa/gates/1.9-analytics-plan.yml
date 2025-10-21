@@ -1,0 +1,19 @@
+gate_id: "1.9-analytics-plan"
+story: docs/stories/1.9-analytics-plan.md
+status: PASS
+summary: |
+  Analytics plan documents GTM adoption, event taxonomy tied to `data-cta`,
+  and consent tooling strategy with architecture references.
+findings:
+  - id: AC1
+    status: PASS
+    detail: Decision workshop outcome captured with rationale comparing GTM vs direct GA/Meta, including deployment scope and permissions.
+  - id: AC2
+    status: PASS
+    detail: Event taxonomy table maps key events, payloads, and implementation notes aligned with CTA naming conventions.
+  - id: AC3
+    status: PASS
+    detail: Documentation includes script placement guidance, consent approach (Cookiebot), and links to architecture references.
+remediation: []
+created_by: Quinn (QA)
+created_at: 2025-02-17T01:41:40Z

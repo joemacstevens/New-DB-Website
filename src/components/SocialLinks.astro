@@ -1,0 +1,58 @@
+---
+import styles from '../styles/contact.module.css';
+
+const socials = [
+  {
+    label: 'Instagram',
+    handle: '@dbelitefitness',
+    href: 'https://www.instagram.com/dbelitefitness/',
+    icon: '📸',
+    dataCta: 'contact-social-instagram',
+  },
+  {
+    label: 'Facebook',
+    handle: 'Different Breed Elite Fitness',
+    href: 'https://www.facebook.com/dbelitefitness',
+    icon: '👍',
+    dataCta: 'contact-social-facebook',
+  },
+  {
+    label: 'TikTok',
+    handle: '@dbelitefitness',
+    href: 'https://www.tiktok.com/@dbelitefitness',
+    icon: '🎥',
+    dataCta: 'contact-social-tiktok',
+  },
+];
+---
+
+<section class={`${styles.section} ${styles.sectionLight}`} aria-labelledby="social-heading">
+  <div class={styles.socialPanel}>
+    <div class={styles.socialIntro}>
+      <h2 id="social-heading">Stay connected.</h2>
+      <p>Follow the work. Be part of the family.</p>
+    </div>
+
+    <ul class={styles.socialList}>
+      {socials.map((social) => (
+        <li key={social.label}>
+          <a
+            class={styles.socialLink}
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cta={social.dataCta}
+            aria-label={`Open ${social.label} for Different Breed in a new tab`}
+          >
+            <span class={styles.socialIcon} aria-hidden="true">
+              {social.icon}
+            </span>
+            <span>{social.label}</span>
+            <span aria-hidden="true">·</span>
+            <span>{social.handle}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

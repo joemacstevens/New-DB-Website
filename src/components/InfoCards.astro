@@ -1,0 +1,51 @@
+---
+import styles from './InfoCards.module.css';
+import type { InfoCard } from '../content/personalTraining';
+
+interface Props {
+  cards: InfoCard[];
+  eyebrow?: string;
+  heading?: string;
+  description?: string;
+  sectionId?: string;
+}
+
+const { cards, eyebrow, heading, description, sectionId } = Astro.props;
+
+const headingId = heading ? `${sectionId ?? 'info-cards'}-heading` : undefined;
+const descriptionId = description ? `${sectionId ?? 'info-cards'}-description` : undefined;
+---
+
+<section class={styles.section} aria-labelledby={headingId} aria-describedby={descriptionId}>
+  <div class={styles.inner}>
+    {(eyebrow || heading || description) && (
+      <div class={styles.header}>
+        {eyebrow && <span class={styles.eyebrow}>{eyebrow}</span>}
+        {heading && (
+          <h2 id={headingId} class={styles.heading}>
+            {heading}
+          </h2>
+        )}
+        {description && (
+          <p id={descriptionId} class={styles.description}>
+            {description}
+          </p>
+        )}
+      </div>
+    )}
+
+    <div class={styles.grid} role="list">
+      {cards.map((card) => (
+        <article key={card.title} class={styles.card} role="listitem">
+          {card.icon && (
+            <span class={styles.icon} aria-hidden="true">
+              {card.icon}
+            </span>
+          )}
+          <h3 class={styles.cardTitle}>{card.title}</h3>
+          <p class={styles.cardDescription}>{card.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

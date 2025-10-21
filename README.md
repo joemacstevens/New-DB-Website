@@ -55,3 +55,22 @@ Astro-based marketing site for Different Breed Elite Fitness. This project uses 
 - Serverless proxies (e.g., `/api/schedule`) rely on environment variables defined in Vercel.
 
 For additional context, see `docs/architecture/full-stack-architecture.md` and `docs/ops/credentials.md`.
+
+## Environment Configuration
+
+Set the following public variables for the `/contact` experience:
+
+| Variable | Purpose |
+| --- | --- |
+| `FORMSPREE_CONTACT_ENDPOINT` | Server-side endpoint that receives contact form submissions (e.g., `https://formspree.io/f/xxxxxxx`). |
+| `PUBLIC_GOOGLE_MAPS_EMBED_URL` | Google Maps embed URL for the Teaneck facility (dark theme preferred). |
+| `PUBLIC_GOOGLE_MAPS_DIRECTIONS_URL` | Directions link opened from the “Get Directions” CTA. If unset, a default Google Maps directions link is used. |
+
+Define these locally in `.env` and within Vercel Project Settings → Environment Variables. The contact page disables submissions and shows configuration warnings until the values are present.
+
+## Personal Training Components
+
+- `src/pages/personal-training.astro` composes the landing page using new section components and shared content defined in `src/content/personalTraining.ts`.
+- `InfoCards`, `InBodyCallout`, `StepsGrid`, `CoachGrid`, and `TestimonialStrip` live under `src/components/` with matching CSS modules.
+- Coach highlight data is seeded from `docs/architecture/content-coaches.md`. Update `src/content/personalTraining.ts` when coach bios change.
+- Testimonial entries are placeholders today (`testimonialsCopyTodo`) and should be replaced with marketing-approved copy + imagery before launch.

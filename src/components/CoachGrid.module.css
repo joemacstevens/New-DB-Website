@@ -1,0 +1,215 @@
+.section {
+  padding: var(--space-2xl) 0;
+  background-color: var(--color-white);
+  color: var(--color-gray-900);
+}
+
+.inner {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.header {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.heading {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-black);
+  text-transform: uppercase;
+  line-height: var(--line-height-tight);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-2xs);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.card {
+  position: relative;
+  isolation: isolate;
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--color-gray-900);
+  aspect-ratio: 1 / 1;
+  outline: none;
+}
+
+.card:focus-visible {
+  box-shadow: 0 0 0 4px rgba(227, 24, 55, 0.3);
+}
+
+.figure {
+  display: flex;
+  height: 100%;
+  position: relative;
+  margin: 0;
+}
+
+.firstName {
+  position: absolute;
+  z-index: 2;
+  top: var(--space-sm);
+  left: var(--space-sm);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: var(--font-weight-black);
+  text-transform: none;
+  color: var(--color-gray-900);
+  transition: opacity 220ms ease;
+}
+
+.photoSurface {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: stretch;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transform-origin: top center;
+  transition: transform 220ms ease;
+}
+
+.photoFallback {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding: var(--space-lg);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-gray-500);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(17, 17, 17, 0.9), rgba(17, 17, 17, 0.72));
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+
+.overlayContent {
+  display: grid;
+  gap: var(--space-md);
+  text-align: left;
+  width: min(260px, 92%);
+}
+
+.overlayHeader {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.name {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.01em;
+}
+
+.meta {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.tagList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.tag {
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.ctaButton {
+  justify-self: start;
+  background: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  color: var(--color-white) !important;
+  backdrop-filter: blur(6px);
+  transition: transform 200ms ease, background-color 200ms ease;
+}
+
+.ctaButton:hover,
+.ctaButton:focus-visible {
+  background: var(--color-red-500) !important;
+  border-color: var(--color-red-500) !important;
+  color: var(--color-white) !important;
+  transform: translateY(-2px);
+}
+
+.card:hover .overlay,
+.card:focus-within .overlay,
+.card:focus-visible .overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.card:hover .photo,
+.card:focus-within .photo,
+.card:focus-visible .photo {
+  transform: scale(1.06);
+}
+
+.card:hover .firstName,
+.card:focus-within .firstName,
+.card:focus-visible .firstName {
+  opacity: 0;
+}
+
+.emptyState {
+  padding: var(--space-lg);
+  border: 1px dashed rgba(17, 17, 17, 0.2);
+  border-radius: var(--border-radius-base);
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .firstName {
+    transition: none;
+  }
+
+  .card:hover .photo,
+  .card:focus-within .photo,
+  .card:focus-visible .photo {
+    transform: none;
+  }
+}
+
+@media (min-width: 720px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+}
+
+@media (min-width: 960px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-lg);
+  }
+}

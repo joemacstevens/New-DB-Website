@@ -1,0 +1,35 @@
+---
+import styles from './TestimonialStrip.module.css';
+import type { Testimonial } from '../content/personalTraining';
+
+interface Props {
+  heading: string;
+  subheading?: string;
+  testimonials: Testimonial[];
+  todoNote?: string;
+}
+
+const { heading, subheading, testimonials, todoNote } = Astro.props;
+---
+
+<section class={styles.section} aria-labelledby="personal-training-testimonials">
+  <div class={styles.inner}>
+    <div class={styles.header}>
+      <h2 id="personal-training-testimonials" class={styles.heading}>
+        {heading}
+      </h2>
+      {subheading && <p class={styles.subheading}>{subheading}</p>}
+      {todoNote && <p class={styles.subheading}><strong>TODO:</strong> {todoNote}</p>}
+    </div>
+
+    <div class={styles.list} role="list">
+      {testimonials.map((item) => (
+        <article key={item.quote} class={styles.card} role="listitem">
+          <p class={styles.quote}>“{item.quote}”</p>
+          <span class={styles.author}>{item.author}</span>
+          {item.result && <span class={styles.result}>{item.result}</span>}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

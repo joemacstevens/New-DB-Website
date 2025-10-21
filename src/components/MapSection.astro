@@ -1,0 +1,45 @@
+---
+import CTAButton from './CTAButton.astro';
+import styles from '../styles/contact.module.css';
+
+const mapEmbedUrl =
+  import.meta.env.PUBLIC_GOOGLE_MAPS_EMBED_URL ??
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.698984199458!2d-74.0142094239065!3d40.89354732663939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2fa96f81f3e0f%3A0x4fb2c1489ce53adf!2s250%20Degraw%20Ave%2C%20Teaneck%2C%20NJ%2007666!5e0!3m2!1sen!2sus!4v1708293064000';
+const hasMapEmbed = Boolean(import.meta.env.PUBLIC_GOOGLE_MAPS_EMBED_URL);
+---
+
+<section class={`${styles.section} ${styles.sectionDark}`} aria-labelledby="map-heading">
+  <div class={styles.mapLayout}>
+    <div class={styles.mapCopy}>
+      <h2 id="map-heading">Come see it for yourself.</h2>
+      <p>
+        Parking is available on-site. When you arrive, enter through the front glass doors and the
+        team will greet you at the desk.
+      </p>
+      <CTAButton
+        href="/membership"
+        dataCta="contact-map-day-pass"
+        ariaLabel="Start your Different Breed day pass"
+      >
+        Get Day Pass
+      </CTAButton>
+    </div>
+
+    <div class={styles.mapIframeWrapper} role="presentation">
+      {hasMapEmbed ? (
+        <iframe
+          class={styles.mapIframe}
+          src={mapEmbedUrl}
+          loading="lazy"
+          title="Different Breed Elite Fitness location on Google Maps"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
+      ) : (
+        <div class={styles.configurationWarning} role="status" aria-live="polite">
+          Set <code>PUBLIC_GOOGLE_MAPS_EMBED_URL</code> to display the live map embed.
+        </div>
+      )}
+    </div>
+  </div>
+</section>
