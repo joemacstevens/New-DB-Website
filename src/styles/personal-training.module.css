@@ -5,6 +5,12 @@
   background-color: var(--color-white);
 }
 
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(225, 29, 72, 0.3), transparent);
+  margin: 0;
+}
+
 .stickyCta {
   position: fixed;
   bottom: var(--space-sm);

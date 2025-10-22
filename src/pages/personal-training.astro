@@ -63,7 +63,11 @@ const heroBackground = {
       sectionId="info"
     />
 
+    <div class={styles.divider}></div>
+
     <InBodySection client:load />
+
+    <div class={styles.divider}></div>
 
     <StepsGrid
       steps={steps}
@@ -72,7 +76,11 @@ const heroBackground = {
       sectionId="steps"
     />
 
+    <div class={styles.divider}></div>
+
     <CoachGrid coaches={coachHighlights} />
+
+    <div class={styles.divider}></div>
 
     <TestimonialStrip
       heading="Proof over promises."

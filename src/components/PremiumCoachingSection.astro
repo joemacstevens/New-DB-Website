@@ -1,0 +1,93 @@
+---
+import { motion } from 'framer-motion';
+import styles from './PremiumCoachingSection.module.css';
+
+const pillars = [
+  {
+    icon: '📊',
+    title: 'Assessment',
+    text: 'We measure, not guess. Every journey starts with an InBody scan and movement review.',
+  },
+  {
+    icon: '📝',
+    title: 'Custom Plan',
+    text: 'Your plan, your pace. Coaches build training blocks around your goals, schedule, and recovery.',
+  },
+  {
+    icon: '📈',
+    title: 'Real Progress',
+    text: 'We track what matters. Each phase ends with new numbers, insights, and strategy.',
+  },
+];
+
+const sectionVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.18,
+    },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: 'easeOut' },
+  },
+};
+
+const gridVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: 'easeOut', staggerChildren: 0.15 },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: 'easeOut' },
+  },
+};
+---
+
+<section class={styles.section} aria-labelledby="premium-coaching-heading">
+  <motion.div
+    className={styles.inner}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.35 }}
+    variants={sectionVariants}
+    client:load
+  >
+    <motion.header className={styles.header} variants={fadeUp}>
+      <h2 id="premium-coaching-heading" class={styles.heading}>Premium Coaching</h2>
+      <p class={styles.subhead}>Built for your goals</p>
+      <p class={styles.description}>
+        Every program starts with assessment, follows a custom plan, and ends with measurable results.
+      </p>
+    </motion.header>
+
+    <motion.div className={styles.grid} variants={gridVariants}>
+      {pillars.map((pillar) => (
+        <motion.article key={pillar.title} className={styles.card} variants={cardVariants}>
+          <motion.div
+            className={styles.icon}
+            animate={{ scale: [1, 1.08, 1], opacity: [1, 0.85, 1] }}
+            transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            {pillar.icon}
+          </motion.div>
+          <h3 class={styles.cardTitle}>{pillar.title}</h3>
+          <p class={styles.cardText}>{pillar.text}</p>
+        </motion.article>
+      ))}
+    </motion.div>
+  </motion.div>
+</section>
