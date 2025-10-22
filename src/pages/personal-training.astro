@@ -4,7 +4,7 @@ import Hero from '../components/Hero.astro';
 import CTAButton from '../components/CTAButton.astro';
 import CTAbar from '../components/CTAbar.astro';
 import InfoCards from '../components/InfoCards.astro';
-import InBodyCallout from '../components/InBodyCallout.astro';
+import InBodySection from '../components/InBodySection.tsx';
 import StepsGrid from '../components/StepsGrid.astro';
 import CoachGrid from '../components/CoachGrid.astro';
 import TestimonialStrip from '../components/TestimonialStrip.astro';
@@ -63,18 +63,7 @@ const heroBackground = {
       sectionId="info"
     />
 
-    <InBodyCallout
-      eyebrow="InBody 380"
-      heading="Know your numbers."
-      body={[
-        'The InBody 380 measures muscle, fat, water balance, and more so you train with facts.',
-        'Scans are included with Competitor and Different Breed memberships.',
-        'Each scan guides the next training block and keeps accountability high.',
-      ]}
-      ctaLabel="Learn more about membership"
-      ctaHref="/membership"
-      ctaDataId="personal-training-inbody-membership"
-    />
+    <InBodySection client:load />
 
     <StepsGrid
       steps={steps}
