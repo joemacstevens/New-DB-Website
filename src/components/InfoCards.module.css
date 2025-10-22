@@ -65,7 +65,7 @@
   color: rgba(232, 232, 232, 0.85);
   display: grid;
   gap: var(--space-sm);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.24);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
 }
@@ -99,7 +99,7 @@
 .card:hover {
   transform: translateY(-6px);
   border-color: rgba(225, 29, 72, 0.4);
-  box-shadow: 0 20px 60px rgba(225, 29, 72, 0.2);
+  box-shadow: 0 28px 60px rgba(225, 29, 72, 0.2);
 }
 
 .card:hover::before,
@@ -109,6 +109,8 @@
 
 .icon {
   font-size: 2rem;
+  position: relative;
+  z-index: 2;
 }
 
 .cardTitle {
