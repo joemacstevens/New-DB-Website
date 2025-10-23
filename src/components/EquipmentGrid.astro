@@ -1,0 +1,66 @@
+---
+import styles from './EquipmentGrid.module.css';
+import type { EquipmentFeature } from '../content/about';
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  description?: string;
+  features: EquipmentFeature[];
+  sectionId?: string;
+}
+
+const { eyebrow, heading, description, features, sectionId } = Astro.props;
+const headingId = `${sectionId ?? 'equipment'}-heading`;
+const descriptionId = description ? `${sectionId ?? 'equipment'}-description` : undefined;
+---
+
+<section class={styles.section} aria-labelledby={headingId} aria-describedby={descriptionId}>
+  <div class={styles.inner}>
+    <div class={styles.header}>
+      {eyebrow && <span class={styles.eyebrow}>{eyebrow}</span>}
+      <h2 id={headingId} class={styles.heading}>
+        {heading}
+      </h2>
+      {description && (
+        <p id={descriptionId} class={styles.description}>
+          {description}
+        </p>
+      )}
+    </div>
+
+    <div class={styles.grid} role="list">
+      {features.map((feature) => (
+        <article
+          class={`${styles.card} ${styles[`theme-${feature.theme}`]}`}
+          role="listitem"
+        >
+          <div class={styles.mediaWrapper}>
+            <img src={feature.image} alt="" loading="lazy" />
+          </div>
+
+          <div class={styles.cardBody}>
+            <h3 class={styles.cardTitle}>{feature.title}</h3>
+            <p class={styles.cardDescription}>{feature.description}</p>
+            <ul class={styles.bulletList}>
+              {feature.bullets.map((bullet) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
+
+            {feature.cta && (
+              <a
+                class={styles.cardCta}
+                href={feature.cta.href}
+                data-cta={feature.cta.dataCta}
+                aria-label={`${feature.cta.label} for ${feature.title}`}
+              >
+                {feature.cta.label}
+              </a>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -6,11 +6,7 @@
 }
 
 .divider {
-  height: 1px;
-  width: 100%;
-  background: linear-gradient(90deg, transparent 0%, rgba(225, 29, 72, 0.3) 50%, transparent 100%);
-  margin: 0;
-  border: none;
+  composes: dividerGradient from './premium-effects.module.css';
 }
 
 .stickyCta {

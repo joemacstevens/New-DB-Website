@@ -1,19 +1,6 @@
 .section {
-  position: relative;
+  composes: surfaceDarkPattern from '../styles/premium-effects.module.css';
   padding: clamp(var(--space-xl), 8vw, var(--space-2xl)) var(--space-sm);
-  background: linear-gradient(135deg, #0f0f10 0%, #111114 50%, #0f0f10 100%);
-  color: rgba(232, 232, 232, 0.85);
-  overflow: hidden;
-}
-
-.section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.02) 1px, transparent 0);
-  background-size: 50px 50px;
-  pointer-events: none;
-  z-index: 0;
 }
 
 .inner {
@@ -48,18 +35,14 @@
 }
 
 .card {
-  position: relative;
-  border-radius: var(--border-radius-base);
+  composes: cardInteractiveBase cardGlassSurface cardInteractiveLift from '../styles/premium-effects.module.css';
   padding: clamp(var(--space-md), 4vw, var(--space-lg));
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(225, 29, 72, 0.2);
   border-left: 4px solid var(--color-red-500);
-  display: grid;
-  gap: var(--space-sm);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover,
+.card:focus-visible {
+  border-left-color: var(--color-red-500);
 }
 
 .quote {
@@ -93,14 +76,6 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: var(--font-weight-semibold);
-}
-
-.card:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(225, 29, 72, 0.4);
-  border-left-color: var(--color-red-500);
-  transform: translateY(-5px);
-  box-shadow: 0 20px 60px rgba(225, 29, 72, 0.15);
 }
 
 @media (min-width: 960px) {

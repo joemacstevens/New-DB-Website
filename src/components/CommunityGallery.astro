@@ -1,0 +1,51 @@
+---
+import styles from './CommunityGallery.module.css';
+import type { CommunityHighlight } from '../content/about';
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  description?: string;
+  highlights: CommunityHighlight[];
+  sectionId?: string;
+}
+
+const { eyebrow, heading, description, highlights, sectionId } = Astro.props;
+const headingId = `${sectionId ?? 'community'}-heading`;
+const descriptionId = description ? `${sectionId ?? 'community'}-description` : undefined;
+---
+
+<section class={styles.section} aria-labelledby={headingId} aria-describedby={descriptionId}>
+  <div class={styles.inner}>
+    <div class={styles.header}>
+      {eyebrow && <span class={styles.eyebrow}>{eyebrow}</span>}
+      <h2 id={headingId} class={styles.heading}>
+        {heading}
+      </h2>
+      {description && (
+        <p id={descriptionId} class={styles.description}>
+          {description}
+        </p>
+      )}
+    </div>
+
+    <div class={styles.gallery} role="list">
+      {highlights.map((highlight, index) => (
+        <article
+          class={`${styles.card} ${styles[`position-${index}`]}`}
+          role="listitem"
+          tabIndex="0"
+        >
+          <img src={highlight.image} alt={highlight.alt} loading="lazy" class={styles.image} />
+          <div class={styles.overlay}>
+            <p class={styles.quote}>{highlight.quote}</p>
+            <p class={styles.author}>
+              <span>{highlight.author}</span>
+              {highlight.accent && <span class={styles.accent}>{highlight.accent}</span>}
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

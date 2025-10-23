@@ -6,13 +6,15 @@ import {
   buildSessions,
   normalizeIncluded,
   sanitizeNumber,
+  type MindbodyClassTime,
+  type MindbodyListResponse,
 } from '../../src/pages/api/schedule';
 
 const fixturePath = join(
   dirname(fileURLToPath(import.meta.url)),
   '../fixtures/mindbody/success.json'
 );
-const fixture = JSON.parse(readFileSync(fixturePath, 'utf-8'));
+const fixture = JSON.parse(readFileSync(fixturePath, 'utf-8')) as MindbodyListResponse;
 
 describe('normalization helpers', () => {
   it('normalizes included entities and caches them', () => {
@@ -25,8 +27,7 @@ describe('normalization helpers', () => {
   });
 
   it('creates session entries with pricing metadata', () => {
-    const lookups = normalizeIncluded(fixture.included);
-    const sessions = buildSessions(fixture.data as any, lookups);
+    const sessions = buildSessions(fixture.data);
 
     expect(sessions[0]).toMatchObject({
       id: '340788312',
@@ -41,12 +42,11 @@ describe('normalization helpers', () => {
   });
 
   it('handles missing coach and class gracefully', () => {
-    const lookups = normalizeIncluded([]);
-    const baseSession = structuredClone((fixture.data as any[])[0]);
+    const baseSession = structuredClone((fixture.data as MindbodyClassTime[])[0]);
     baseSession.relationships.staff = { data: null };
     baseSession.relationships.course = { data: null };
 
-    const sessions = buildSessions([baseSession], lookups);
+    const sessions = buildSessions([baseSession]);
 
     expect(sessions[0].coachId).toBeUndefined();
     expect(sessions[0].classId).toBe('unknown-class');

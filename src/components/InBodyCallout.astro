@@ -4,28 +4,6 @@ import styles from './InBodyCallout.module.css';
 
 // Import InBody images
 import inbodyMachine from '../assets/inbody-app/inbody-380.webp?url';
-import inbodyLogo from '../assets/inbody-app/inbody-logo.webp?url';
-import phoneApp from '../assets/inbody-app/phone-app-white.webp?url';
-
-interface Props {
-  eyebrow?: string;
-  heading: string;
-  body: string[];
-  ctaLabel: string;
-  ctaHref: string;
-  ctaDataId: string;
-}
-
-const {
-  eyebrow,
-  heading,
-  body,
-  ctaLabel,
-  ctaHref,
-  ctaDataId,
-} = Astro.props;
-
-const sectionId = `inbody-${heading.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 ---
 
 <section class={styles.section} aria-labelledby="inbody-heading">

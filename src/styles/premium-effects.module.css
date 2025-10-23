@@ -1,0 +1,123 @@
+.surfaceLightPattern {
+  position: relative;
+  background-color: #fafafa;
+  color: var(--color-gray-900);
+  overflow: hidden;
+}
+
+.surfaceLightPattern::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--pattern-dots-light);
+  background-size: var(--pattern-dots-size);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.surfaceDarkPattern {
+  position: relative;
+  background: var(--surface-dark-sweep);
+  color: var(--text-on-dark);
+  overflow: hidden;
+}
+
+.surfaceDarkPattern::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--pattern-dots-dark);
+  background-size: var(--pattern-dots-size);
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cardInteractiveBase {
+  position: relative;
+  border-radius: var(--border-radius-base);
+  display: grid;
+  gap: var(--space-sm);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.cardSurfaceDark {
+  background: var(--surface-dark-gradient);
+  border: 1px solid var(--border-red-soft);
+  color: var(--text-on-dark);
+  box-shadow: var(--shadow-elevated-lg);
+}
+
+.cardSurfaceDark::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-accent-red);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.cardSurfaceDark::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: var(--card-glow-red);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.cardInteractiveLift {
+  transform: translateY(0);
+}
+
+.cardInteractiveLift:hover,
+.cardInteractiveLift:focus-visible {
+  transform: translateY(-6px);
+}
+
+.cardSurfaceDarkElevate:hover,
+.cardSurfaceDarkElevate:focus-visible {
+  border-color: var(--border-red-strong);
+  box-shadow: var(--shadow-red-glow);
+}
+
+.cardSurfaceDarkElevate:hover::before,
+.cardSurfaceDarkElevate:hover::after,
+.cardSurfaceDarkElevate:focus-visible::before,
+.cardSurfaceDarkElevate:focus-visible::after {
+  opacity: 1;
+}
+
+.cardGlassSurface {
+  background: var(--glass-surface-base);
+  border: 1px solid var(--border-red-soft);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.cardGlassSurface:hover,
+.cardGlassSurface:focus-visible {
+  background: var(--glass-surface-hover);
+  border-color: var(--border-red-strong);
+  box-shadow: var(--shadow-red-glow);
+}
+
+.dividerGradient {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(225, 29, 72, 0.3) 50%, transparent 100%);
+  border: none;
+  margin: 0;
+}

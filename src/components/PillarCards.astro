@@ -1,0 +1,46 @@
+---
+import styles from './PillarCards.module.css';
+import type { Pillar } from '../content/about';
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  description?: string;
+  pillars: Pillar[];
+  sectionId?: string;
+}
+
+const { eyebrow, heading, description, pillars, sectionId } = Astro.props;
+const headingId = `${sectionId ?? 'pillars'}-heading`;
+const descriptionId = description ? `${sectionId ?? 'pillars'}-description` : undefined;
+---
+
+<section class={styles.section} aria-labelledby={headingId} aria-describedby={descriptionId}>
+  <div class={styles.inner}>
+    <div class={styles.header}>
+      {eyebrow && <span class={styles.eyebrow}>{eyebrow}</span>}
+      <h2 id={headingId} class={styles.heading}>
+        {heading}
+      </h2>
+      {description && (
+        <p id={descriptionId} class={styles.description}>
+          {description}
+        </p>
+      )}
+    </div>
+
+    <div class={styles.grid} role="list">
+      {pillars.map((pillar) => (
+        <article class={styles.card} role="listitem">
+          {pillar.icon && (
+            <span class={styles.icon} aria-hidden="true">
+              {pillar.icon}
+            </span>
+          )}
+          <h3 class={styles.cardTitle}>{pillar.title}</h3>
+          <p class={styles.cardCopy}>{pillar.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

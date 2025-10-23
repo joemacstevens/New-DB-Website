@@ -1,0 +1,125 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import PillarCards from '../components/PillarCards.astro';
+import PhotoMosaic from '../components/PhotoMosaic.astro';
+import EquipmentGrid from '../components/EquipmentGrid.astro';
+import CommunityGallery from '../components/CommunityGallery.astro';
+import CoachGrid from '../components/CoachGrid.astro';
+import TestimonialStrip from '../components/TestimonialStrip.astro';
+import CTAbar from '../components/CTAbar.astro';
+import styles from '../styles/about.module.css';
+
+import {
+  heroContent,
+  pillars,
+  facilityMedia,
+  equipmentFeatures,
+  communityHighlights,
+  aboutTestimonials,
+} from '../content/about';
+
+import { coachHighlights } from '../content/personalTraining';
+
+const heroBackground = {
+  type: 'image' as const,
+  src: heroContent.background,
+  alt: 'Athlete working through a Different Breed training session',
+};
+
+const featuredCoaches = coachHighlights.slice(0, 3);
+---
+
+<Layout>
+  <Hero
+    eyebrow={heroContent.eyebrow}
+    heading={heroContent.heading}
+    subheading={heroContent.subheading}
+    primaryCta={{
+      label: 'Get Day Pass',
+      href: '/membership',
+      dataCta: 'about-hero-day-pass',
+      ariaLabel: 'Get a day pass for Different Breed',
+    }}
+    secondaryCta={{
+      label: 'Watch Facility Tour',
+      href: '/preview',
+      dataCta: 'about-hero-tour',
+      ariaLabel: 'Watch the Different Breed facility walkthrough',
+    }}
+    background={heroBackground}
+    overlay="70"
+  />
+
+  <main class={styles.page}>
+    <PillarCards
+      eyebrow="The Different Breed Standard"
+      heading="Why we’re not a normal gym"
+      description="Coaching, standards, and community combine to build results that stick. Every member feels the difference day one."
+      pillars={pillars}
+      sectionId="pillars"
+    />
+
+    <div class={styles.divider}></div>
+
+    <PhotoMosaic
+      eyebrow="Inside the facility"
+      heading="Walk the floor before day one"
+      description="Ring, turf, recovery lounge—each zone is built with purpose. Tap to see it up close."
+      media={facilityMedia}
+      sectionId="facility"
+    />
+
+    <div class={styles.divider}></div>
+
+    <EquipmentGrid
+      eyebrow="Tools that build results"
+      heading="Equipment matched to the mission"
+      description="Evidence-based training needs the right hardware. From the InBody lab to sled lanes, we’re geared for progress."
+      features={equipmentFeatures}
+      sectionId="equipment"
+    />
+
+    <div class={styles.divider}></div>
+
+    <CoachGrid
+      coaches={featuredCoaches}
+    />
+
+    <div class={styles.divider}></div>
+
+    <CommunityGallery
+      eyebrow="More than a gym"
+      heading="It’s family in here"
+      description="Members push, spot, and celebrate together. Hear it from the people who live the Different Breed standard."
+      highlights={communityHighlights}
+      sectionId="community"
+    />
+
+    <div class={styles.divider}></div>
+
+    <TestimonialStrip
+      heading="Proof over promises."
+      subheading="Members, parents, and coaches see measurable change and hold each other accountable."
+      testimonials={aboutTestimonials}
+    />
+
+    <CTAbar
+      eyebrow="Ready for day one?"
+      heading="Be Different. Not Basic."
+      body="Train with coaches who care, equipment that proves progress, and a community that keeps you accountable."
+      alignment="center"
+      primaryCta={{
+        label: 'Get Day Pass',
+        href: '/membership',
+        dataCta: 'about-final-day-pass',
+        ariaLabel: 'Grab your day pass and start training',
+      }}
+      secondaryLink={{
+        label: 'Meet the Coaches',
+        href: '/coaches',
+        dataCta: 'about-final-coaches',
+      }}
+    />
+  </main>
+</Layout>

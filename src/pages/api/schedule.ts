@@ -9,12 +9,12 @@ import type {
   ScheduleSession,
 } from '../../types/schedule';
 
-type MindbodyListResponse = {
+export type MindbodyListResponse = {
   data: MindbodyClassTime[];
   included?: MindbodyIncluded[];
 };
 
-type MindbodyClassTime = {
+export type MindbodyClassTime = {
   id: string;
   type: 'classTime';
   attributes: {
@@ -48,7 +48,7 @@ type MindbodyPurchaseOption = {
   } | null;
 };
 
-type MindbodyIncluded =
+export type MindbodyIncluded =
   | {
       id: string;
       type: 'course';
@@ -214,10 +214,7 @@ export const normalizeIncluded = (included: MindbodyIncluded[] | undefined) => {
   return { classes, coaches, locations };
 };
 
-export const buildSessions = (
-  data: MindbodyClassTime[],
-  lookups: { classes: Record<string, ScheduleClass>; coaches: Record<string, ScheduleCoach>; locations: Record<string, ScheduleLocation> }
-): ScheduleSession[] =>
+export const buildSessions = (data: MindbodyClassTime[]): ScheduleSession[] =>
   data.map((item) => {
     const classId = item.relationships.course?.data?.id ?? 'unknown-class';
     const coachId = item.relationships.staff?.data?.id ?? undefined;
@@ -249,7 +246,7 @@ export const normalizePayload = (response: MindbodyListResponse, params: Schedul
   Object.assign(coaches, lookups.coaches);
   Object.assign(locations, lookups.locations);
 
-  const sessions = buildSessions(response.data, { classes, coaches, locations });
+  const sessions = buildSessions(response.data);
 
   return {
     generatedAt: new Date().toISOString(),

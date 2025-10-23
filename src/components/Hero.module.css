@@ -17,8 +17,8 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.03) 1px, transparent 0);
-  background-size: 50px 50px;
+  background-image: var(--pattern-dots-dark);
+  background-size: var(--pattern-dots-size);
   pointer-events: none;
   z-index: 1;
 }

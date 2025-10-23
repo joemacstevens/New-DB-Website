@@ -26,7 +26,7 @@
 }
 
 .heading {
-  font-size: var(--font-size-2xl);
+  font-size: clamp(2rem, 4vw, 2.75rem);
   font-weight: var(--font-weight-black);
   line-height: var(--line-height-tight);
   text-transform: uppercase;
@@ -35,6 +35,7 @@
 .description {
   font-size: var(--font-size-base);
   color: var(--color-gray-700);
+  line-height: 1.7;
 }
 
 .grid {
@@ -44,27 +45,29 @@
 
 .card {
   composes: cardInteractiveBase cardSurfaceDark cardSurfaceDarkElevate cardInteractiveLift from '../styles/premium-effects.module.css';
-  padding: clamp(var(--space-lg), 4vw, var(--space-xl));
+  padding: clamp(var(--space-lg), 4vw, calc(var(--space-xl) - 0.5rem));
 }
 
 .icon {
-  font-size: 2rem;
+  font-size: 2.25rem;
+  line-height: 1;
   position: relative;
   z-index: 2;
 }
 
 .cardTitle {
-  font-size: var(--font-size-xl);
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
   font-weight: var(--font-weight-bold);
   text-transform: uppercase;
+  letter-spacing: 0.04em;
   position: relative;
   z-index: 2;
 }
 
-.cardDescription {
-  font-size: var(--font-size-base);
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.75;
+.cardCopy {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.85;
   position: relative;
   z-index: 2;
 }

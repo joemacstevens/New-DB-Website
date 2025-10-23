@@ -1,0 +1,234 @@
+---
+import styles from './PhotoMosaic.module.css';
+import type { FacilityMedia } from '../content/about';
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  description?: string;
+  media: FacilityMedia[];
+  sectionId?: string;
+}
+
+const { eyebrow, heading, description, media, sectionId } = Astro.props;
+const headingId = `${sectionId ?? 'facility'}-heading`;
+const descriptionId = description ? `${sectionId ?? 'facility'}-description` : undefined;
+---
+
+<section class={styles.section} data-photo-mosaic aria-labelledby={headingId} aria-describedby={descriptionId}>
+  <div class={styles.inner}>
+    <div class={styles.header}>
+      {eyebrow && <span class={styles.eyebrow}>{eyebrow}</span>}
+      <h2 id={headingId} class={styles.heading}>
+        {heading}
+      </h2>
+      {description && (
+        <p id={descriptionId} class={styles.description}>
+          {description}
+        </p>
+      )}
+    </div>
+
+    <div class={styles.grid}>
+      {media.map((item, index) => (
+        <button
+          type="button"
+          class={`${styles.tile} ${styles[`priority-${item.priority}`]}`}
+          data-index={index}
+          data-type={item.mediaType}
+          data-src={item.src}
+          data-poster={item.poster}
+          data-caption={item.caption}
+          data-href={item.cta?.href}
+          data-cta={item.cta?.dataCta}
+          aria-label={`${item.caption} (opens in lightbox)`}
+        >
+          {item.mediaType === 'video' ? (
+            <div class={styles.videoTile}>
+              <img src={item.poster ?? item.src} alt="" loading="lazy" class={styles.tileImage} />
+              <span class={styles.playIcon} aria-hidden="true">▶</span>
+            </div>
+          ) : (
+            <img src={item.src} alt="" loading={index === 0 ? 'eager' : 'lazy'} class={styles.tileImage} />
+          )}
+          <span class={styles.tileCaption}>{item.caption}</span>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class={styles.lightbox} data-lightbox aria-hidden="true">
+    <div class={styles.lightboxContent} role="dialog" aria-modal="true" aria-labelledby={`${headingId}-lightbox`}>
+      <div class={styles.lightboxHeader}>
+        <p id={`${headingId}-lightbox`} class={styles.lightboxTitle}>
+          {heading}
+        </p>
+        <button type="button" class={styles.closeButton} data-close aria-label="Close gallery">
+          Close
+        </button>
+      </div>
+
+      <div class={styles.lightboxBody}>
+        <div data-media-container class={styles.mediaContainer}></div>
+        <div class={styles.captionRow}>
+          <p data-lightbox-caption class={styles.lightboxCaption}></p>
+          <a data-lightbox-cta class={styles.lightboxCta} hidden></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const scriptEl = document.currentScript;
+    const previousSibling = scriptEl && scriptEl.previousElementSibling;
+    const mosaic =
+      previousSibling && previousSibling.matches && previousSibling.matches('[data-photo-mosaic]')
+        ? previousSibling
+        : previousSibling?.querySelector?.('[data-photo-mosaic]');
+    if (!mosaic) {
+      console.warn('[PhotoMosaic] host element not found');
+    } else {
+      const tiles = Array.from(mosaic.querySelectorAll('[data-index]'));
+      const lightbox = mosaic.querySelector('[data-lightbox]');
+      const mediaContainer = lightbox.querySelector('[data-media-container]');
+      const captionEl = lightbox.querySelector('[data-lightbox-caption]');
+      const ctaEl = lightbox.querySelector('[data-lightbox-cta]');
+      const closeBtn = lightbox.querySelector('[data-close]');
+      let lastActive = null;
+      let currentIndex = 0;
+
+      const focusableSelectors = [
+        'a[href]',
+        'button:not([disabled])',
+        '[tabindex]:not([tabindex="-1"])',
+      ].join(',');
+
+      const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function getMedia(index) {
+        return tiles[index];
+      }
+
+      function trapFocus(event) {
+        if (event.key !== 'Tab') return;
+        const focusable = Array.from(lightbox.querySelectorAll(focusableSelectors));
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey) {
+          if (document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          }
+        } else if (document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+
+      function teardownMedia() {
+        mediaContainer.innerHTML = '';
+      }
+
+      function renderMedia(tile) {
+        const type = tile.dataset.type;
+        const src = tile.dataset.src ?? '';
+        const poster = tile.dataset.poster ?? '';
+        teardownMedia();
+        if (type === 'video') {
+          const video = document.createElement('video');
+          video.src = src;
+          video.controls = true;
+          video.playsInline = true;
+          video.preload = 'metadata';
+          video.setAttribute('aria-label', tile.getAttribute('aria-label') ?? 'Facility tour video');
+          if (poster) {
+            video.poster = poster;
+          }
+          if (!isReducedMotion) {
+            video.autoplay = true;
+            video.muted = true;
+          }
+          mediaContainer.appendChild(video);
+        } else {
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = tile.getAttribute('aria-label') ?? '';
+          mediaContainer.appendChild(img);
+        }
+      }
+
+      function updateLightbox(tile) {
+        renderMedia(tile);
+        captionEl.textContent = tile.dataset.caption ?? '';
+        if (tile.dataset.href) {
+          ctaEl.textContent = tile.dataset.caption ?? 'Learn more';
+          ctaEl.href = tile.dataset.href;
+          ctaEl.dataset.cta = tile.dataset.cta ?? '';
+          ctaEl.hidden = false;
+        } else {
+          ctaEl.hidden = true;
+          ctaEl.removeAttribute('href');
+          ctaEl.removeAttribute('data-cta');
+        }
+      }
+
+      function openLightbox(index) {
+        currentIndex = index;
+        const tile = getMedia(index);
+        if (!tile) return;
+        lastActive = document.activeElement;
+        lightbox.dataset.open = 'true';
+        lightbox.removeAttribute('aria-hidden');
+        updateLightbox(tile);
+        document.addEventListener('keydown', handleKeyDown);
+        document.addEventListener('keydown', trapFocus, true);
+        closeBtn.focus();
+      }
+
+      function closeLightbox() {
+        lightbox.dataset.open = 'false';
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.removeEventListener('keydown', handleKeyDown);
+        document.removeEventListener('keydown', trapFocus, true);
+        teardownMedia();
+        if (lastActive) {
+          lastActive.focus();
+          lastActive = null;
+        }
+      }
+
+      function handleKeyDown(event) {
+        if (lightbox.getAttribute('aria-hidden') === 'true') return;
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          closeLightbox();
+        } else if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          currentIndex = (currentIndex + 1) % tiles.length;
+          updateLightbox(getMedia(currentIndex));
+        } else if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          currentIndex = (currentIndex - 1 + tiles.length) % tiles.length;
+          updateLightbox(getMedia(currentIndex));
+        }
+      }
+
+      tiles.forEach((tile, index) => {
+        tile.addEventListener('click', () => openLightbox(index));
+        tile.addEventListener('keydown', (event) => {
+          if ((event.key === 'Enter' || event.key === ' ') && !event.defaultPrevented) {
+            event.preventDefault();
+            openLightbox(index);
+          }
+        });
+      });
+
+      closeBtn.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) {
+          closeLightbox();
+        }
+      });
+    }
+  </script>
